@@ -11,19 +11,19 @@ This library allows you to structure commands and subcommands with a recursive j
         "id": "c1_id",
         "command": "command1",
         "help": "Select c1",
-        "args": [ ... ],
+        "args": [ ],
         "subCommands": [
             {
                 "id": "sc1_id",
                 "command": "subcommand1",
                 "help": "select sc1",
-                "args": [ ... ]
+                "args": [ ]
             },
             {
                 "id": "sc2_id",
                 "command": "subcommand2",
                 "help": "Select c12",
-                "args": [ ... ]
+                "args": [ ]
             }
         ]
     },
