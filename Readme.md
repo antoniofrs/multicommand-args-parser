@@ -45,7 +45,7 @@ For example, in this json a list of commands is initialized as follows:
 | c1 sc2  | sc2_id |
 | c2      | c2_id  |
 
-Where is the `id`, which you can retrieve from `agrs.id`, will help you to get
+Where `id`, which you can retrieve from `agrs.id`, will help you to get
 the command given in input by the user
 
 ### Arguments
