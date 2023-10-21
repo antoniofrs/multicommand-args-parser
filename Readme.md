@@ -74,10 +74,10 @@ Where:
 | default | default value                                   | Yes      | empty string |
 | envVar  | Environment variable associated to the argument | Yes      | no env var   |
 
-Default and envVar will respect the following logic:
+`default` and `envVar` will respect the following logic:
 
 ```python
-default_value = os.getenv(arg["envVar"], "default")
+default_value = os.getenv(arg["envVar"], arg["default"])
 ```
 If the command line argument is passed the environment variable is ignored
 
