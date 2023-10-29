@@ -3,6 +3,7 @@ import json
 import os
 import sys
 
+from multicommand_arg_parser_doc import get_parser_help
 
 class MulticommandArgParser:
 
@@ -19,7 +20,13 @@ class MulticommandArgParser:
 
     def get_parser(self) -> argparse.ArgumentParser:
         return self.__get_parser_from_json(self.parser_json)
+    
+    def print_help(self):
+        print(get_parser_help(self.parser_json))
 
+    def get_help(self) -> str:
+        return get_parser_help(self.parser_json)
+    
     def __add_subcommand_to_parser(self, parser: argparse.ArgumentParser, json_data: dict):
         subparsers = parser.add_subparsers()
         parser
@@ -38,7 +45,7 @@ class MulticommandArgParser:
         action_type = arg.get("action", "store")
         arg_default = self.__get_default_arg(arg)
         parser.add_argument(
-            f'-{arg["short"]}', f'-{arg["long"]}',
+            f'-{arg["short"]}', f'--{arg["long"]}',
             help=arg.get("help", ""),
             action=action_type,
             default=arg_default

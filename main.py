@@ -8,6 +8,7 @@ from multicommand_arg_parser import MulticommandArgParser
 def main():
     mcap = MulticommandArgParser("template-args.json")
     parser = mcap.get_parser()
+    mcap.print_help()
     args = parser.parse_args()
     print("Selected command with id: ", args.command_id)
     print("Command  Namespace: ", args)
