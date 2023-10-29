@@ -7,8 +7,8 @@ This library allows you to structure commands and subcommands with a recursive j
 
 ```json
 {
-    globalArgs: [],
-    commands: [
+    "globalArgs": [],
+    "commands": [
         {
             "id": "c1_id",
             "command": "command1",
