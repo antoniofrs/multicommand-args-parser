@@ -45,7 +45,7 @@ For example, in this json a list of commands is initialized as follows:
 | c1 sc2  | sc2_id |
 | c2      | c2_id  |
 
-Where is the `id`, which you can retrieve from `agrs.id`, will help you to get
+Where `id`, which you can retrieve from `agrs.id`, will help you to get
 the command given in input by the user
 
 ### Arguments
@@ -74,10 +74,10 @@ Where:
 | default | default value                                   | Yes      | empty string |
 | envVar  | Environment variable associated to the argument | Yes      | no env var   |
 
-Default and envVar will respect the following logic:
+`default` and `envVar` will respect the following logic:
 
 ```python
-default_value = os.getenv(arg["envVar"], "default")
+default_value = os.getenv(arg["envVar"], arg["default"])
 ```
 If the command line argument is passed the environment variable is ignored
 
