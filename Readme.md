@@ -6,34 +6,37 @@ This library allows you to structure commands and subcommands with a recursive j
 
 
 ```json
-[
-    {
-        "id": "c1_id",
-        "command": "command1",
-        "help": "Select c1",
-        "args": [ ],
-        "subCommands": [
-            {
-                "id": "sc1_id",
-                "command": "subcommand1",
-                "help": "select sc1",
-                "args": [ ]
-            },
-            {
-                "id": "sc2_id",
-                "command": "subcommand2",
-                "help": "Select c12",
-                "args": [ ]
-            }
-        ]
-    },
-    {
-        "id": "command2",
-        "command": "c2",
-        "help": "Selected c2",
-        "args": [ ]
-    }
-]
+{
+    globalArgs: [],
+    commands: [
+        {
+            "id": "c1_id",
+            "command": "command1",
+            "help": "Select c1",
+            "args": [ ],
+            "subCommands": [
+                {
+                    "id": "sc1_id",
+                    "command": "subcommand1",
+                    "help": "select sc1",
+                    "args": [ ]
+                },
+                {
+                    "id": "sc2_id",
+                    "command": "subcommand2",
+                    "help": "Select c12",
+                    "args": [ ]
+                }
+            ]
+        },
+        {
+            "id": "command2",
+            "command": "c2",
+            "help": "Selected c2",
+            "args": [ ]
+        }
+    ]
+}
 ```
 
 For example, in this json a list of commands is initialized as follows:
@@ -50,7 +53,7 @@ the command given in input by the user
 
 ### Arguments
 
-The `args` array contains a list of objects as follows:
+The `args` and `globalArgs` arrays contain a list of objects as follows:
 
 ```json
 {
@@ -74,10 +77,12 @@ Where:
 | default | default value                                   | Yes      | empty string |
 | envVar  | Environment variable associated to the argument | Yes      | no env var   |
 
-`default` and `envVar` will respect the following logic:
+`default` and `envVar` use the following logic:
 
 ```python
-default_value = os.getenv(arg["envVar"], arg["default"])
+default = arg.get("default", None)
+default_value = os.getenv(arg["envVar"], default)
+parser.add_argument( ..., default=default_value)
 ```
 If the command line argument is passed the environment variable is ignored
 
@@ -87,10 +92,14 @@ If the command line argument is passed the environment variable is ignored
 ## How to use
 
 ```python
-mcap = MulticommandArgParser()
-parser = mcap.get_parser_from_template("template-args.json")
+mcap = MulticommandArgParser("template-args.json")
+parser = mcap.get_parser()
 args = parser.parse_args()
-print("Selected command with id: ", args.id)
+
+print("Selected command with id: ", args.command_id)
 print("Args list: ", args)
+
+mcap.print_help() # Print help on standard output
+print(mcap.get_help()) # print help wherever you want
 ```
 
