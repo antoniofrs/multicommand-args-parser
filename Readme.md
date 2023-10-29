@@ -7,7 +7,7 @@ This library allows you to structure commands and subcommands with a recursive j
 
 ```json
 {
-    "globalArgs": [],
+    "globalArgs": [ ],
     "commands": [
         {
             "id": "c1_id",
@@ -48,7 +48,7 @@ For example, in this json a list of commands is initialized as follows:
 | c1 sc2  | sc2_id |
 | c2      | c2_id  |
 
-Where `id`, which you can retrieve from `agrs.id`, will help you to get
+Where `id`, which you can retrieve from `args.command_id`, will help you to get
 the command given in input by the user
 
 ### Arguments
@@ -100,6 +100,6 @@ print("Selected command with id: ", args.command_id)
 print("Args list: ", args)
 
 mcap.print_help() # Print help on standard output
-print(mcap.get_help()) # print help wherever you want
+print(mcap.get_help()) # Print help wherever you want
 ```
 
