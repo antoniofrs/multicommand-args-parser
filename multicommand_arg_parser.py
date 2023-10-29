@@ -6,31 +6,10 @@ import sys
 
 class MulticommandArgParser:
 
-    def add_command_to_parser(self, parser: argparse.ArgumentParser, json_data: dict):
-        subparsers = parser.add_subparsers()
-        for command in json_data:
-            subparser = subparsers.add_parser(command["command"], help=command.get("help", ""))
-            subparser.set_defaults(id=command["id"])
-            for arg in command.get("args", []):
-                self.add_arguments_to_parser(subparser, arg)
-
-            if "subCommands" in command:
-                self.add_command_to_parser(subparser, command["subCommands"])
-
-    def __get_default_arg(self, arg):
-        default = arg.get("default", None)
-        return os.getenv(arg["envVar"]) if "envvar" in arg else default
-
-    def get_parser_from_json(self, json_data: dict):
-        parser = argparse.ArgumentParser()
-        self.add_command_to_parser(parser, json_data)
-        return parser
-
-    def get_parser_from_template(self, json_file: str):
+    def __init__(self, json_file: str):
         try:
             with open(json_file, 'r') as file:
-                data = json.load(file)
-            return self.get_parser_from_json(data)
+                self.parser_json = json.load(file)
         except FileNotFoundError:
             print(f"Cannot find '{json_file}' file")
             sys.exit(1)
@@ -38,7 +17,24 @@ class MulticommandArgParser:
             print(f"JSON decode thrown an exception: {e}")
             sys.exit(1)
 
-    def add_arguments_to_parser(self, parser: argparse.ArgumentParser, arg: dict):
+    def get_parser(self) -> argparse.ArgumentParser:
+        return self.__get_parser_from_json(self.parser_json)
+
+    def __add_subcommand_to_parser(self, parser: argparse.ArgumentParser, json_data: dict):
+        subparsers = parser.add_subparsers()
+        parser
+        for command in json_data:
+            subparser = subparsers.add_parser(
+                command["command"], help=command.get("help", ""))
+            subparser.set_defaults(command_id=command["id"])
+            for arg in command.get("args", []):
+                self.__add_argument_to_parser(subparser, arg)
+
+            if "subCommands" in command:
+                self.__add_subcommand_to_parser(
+                    subparser, command["subCommands"])
+
+    def __add_argument_to_parser(self, parser: argparse.ArgumentParser, arg: dict):
         action_type = arg.get("action", "store")
         arg_default = self.__get_default_arg(arg)
         parser.add_argument(
@@ -47,3 +43,18 @@ class MulticommandArgParser:
             action=action_type,
             default=arg_default
         )
+
+    def __add_arguments_to_parser(self, parser: argparse.ArgumentParser, args: list):
+        for arg in args:
+            self.__add_argument_to_parser(parser, arg)
+
+    def __get_default_arg(self, arg):
+        default = arg.get("default", None)
+        return os.getenv(arg["envVar"]) if "envvar" in arg else default
+
+    def __get_parser_from_json(self, json_data: dict):
+        parser = argparse.ArgumentParser()
+        parser.set_defaults(command_id="default")
+        self.__add_arguments_to_parser(parser, json_data.get("globalArgs", []))
+        self.__add_subcommand_to_parser(parser, json_data["commands"])
+        return parser

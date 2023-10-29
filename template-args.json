@@ -1,98 +1,109 @@
-[
-    {
-        "id": "c1_id",
-        "command": "c1",
-        "help": "Select c1",
-        "args": [
-            {
-                "short": "fh",
-                "long": "ftp-host",
-                "help": "Host ftp",
-                "default": "localhost:2222"
-            },
-            {
-                "short": "fu",
-                "long": "ftp-user",
-                "help": "Ftp user",
-                "default": "root"
-            },
-            {
-                "short": "fp",
-                "long": "ftp-password",
-                "help": "Ftp password",
-                "default": "root_pass"
-            }
-        ],
-        "subCommands": [
-            {
-                "id": "c11_id",
-                "command": "c11",
-                "help": "select c11",
-                "args": [
-                    {
-                        "short": "a",
-                        "long": "a-arg",
-                        "help": "An arg here",
-                        "action": "store"
-                    }
-                ]
-            },
-            {
-                "id": "c12_id",
-                "command": "c12",
-                "help": "Select c12",
-                "args": [
-                    {
-                        "short": "t",
-                        "long": "type",
-                        "help": "A type",
-                        "action": "store_true"
-                    }
-                ]
-            }
-        ]
-    },
-    {
-        "id": "c2_id",
-        "command": "c2",
-        "help": "Selected c2",
-        "args": [
-            {
-                "short": "a",
-                "long": "a-arg",
-                "help": "An arg here",
-                "action": "store"
-            }
-        ],
-        "subCommands": [
-            {
-                "id": "c21_id",
-                "command": "c21",
-                "help": "Selecte c21",
-                "args": [
-                    {
-                        "short": "s",
-                        "long": "step",
-                        "help": "A Steps list",
-                        "default": "1,2,3,4"
-                    }
-                ]
-            },
-            {
-                "id": "c22_id",
-                "command": "c22",
-                "help": "Select c22",
-                "args": [
-                    {
-                        "short": "t",
-                        "long": "type",
-                        "help": "A type",
-                        "action": "store",
-                        "envVar": "TYPE_ENV_VAR",
-                        "default": "default_tipe"
-                    }
-                ]
-            }
-        ]
-    }
-]
+{
+    "globalArgs": [
+        {
+            "short": "g",
+            "long": "g-arg",
+            "help": "An global arg here",
+            "action": "store",
+            "default": "globally"
+        }
+    ],
+    "commands": [
+        {
+            "id": "c1_id",
+            "command": "c1",
+            "help": "Select c1",
+            "args": [
+                {
+                    "short": "fh",
+                    "long": "ftp-host",
+                    "help": "Host ftp",
+                    "default": "localhost:2222"
+                },
+                {
+                    "short": "fu",
+                    "long": "ftp-user",
+                    "help": "Ftp user",
+                    "default": "root"
+                },
+                {
+                    "short": "fp",
+                    "long": "ftp-password",
+                    "help": "Ftp password",
+                    "default": "root_pass"
+                }
+            ],
+            "subCommands": [
+                {
+                    "id": "c11_id",
+                    "command": "c11",
+                    "help": "select c11",
+                    "args": [
+                        {
+                            "short": "a",
+                            "long": "a-arg",
+                            "help": "An arg here",
+                            "action": "store"
+                        }
+                    ]
+                },
+                {
+                    "id": "c12_id",
+                    "command": "c12",
+                    "help": "Select c12",
+                    "args": [
+                        {
+                            "short": "t",
+                            "long": "type",
+                            "help": "A type",
+                            "action": "store_true"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "c2_id",
+            "command": "c2",
+            "help": "Selected c2",
+            "args": [
+                {
+                    "short": "a",
+                    "long": "a-arg",
+                    "help": "An arg here",
+                    "action": "store"
+                }
+            ],
+            "subCommands": [
+                {
+                    "id": "c21_id",
+                    "command": "c21",
+                    "help": "Selecte c21",
+                    "args": [
+                        {
+                            "short": "s",
+                            "long": "step",
+                            "help": "A Steps list",
+                            "default": "1,2,3,4"
+                        }
+                    ]
+                },
+                {
+                    "id": "c22_id",
+                    "command": "c22",
+                    "help": "Select c22",
+                    "args": [
+                        {
+                            "short": "t",
+                            "long": "type",
+                            "help": "A type",
+                            "action": "store",
+                            "envVar": "TYPE_ENV_VAR",
+                            "default": "default_tipe"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

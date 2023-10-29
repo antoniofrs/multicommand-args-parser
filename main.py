@@ -3,15 +3,13 @@
 __author__ = "Antonio Frisenda"
 __version__ = "0.1.0"
 
-
 from multicommand_arg_parser import MulticommandArgParser
 
-
 def main():
-    mcap = MulticommandArgParser()
-    parser = mcap.get_parser_from_template("template-args.json")
+    mcap = MulticommandArgParser("template-args.json")
+    parser = mcap.get_parser()
     args = parser.parse_args()
-    print("Selected command with id: ", args.id)
+    print("Selected command with id: ", args.command_id)
     print("Command  Namespace: ", args)
 
 
