@@ -107,7 +107,7 @@ print(mcap.get_help()) # Print help wherever you want
 ```
 
 ### Context holder
-Once the MulticommandArgParser is initialized you can access passed arguments via the context holder:
+Once the MulticommandArgParser is initialized you can access passed arguments throw the `ContextHolder`:
 
 ```python
 from multicommand_arg_parser import MulticommandArgParser
