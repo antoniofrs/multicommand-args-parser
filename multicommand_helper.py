@@ -1,7 +1,7 @@
 def print_command(commands: list, command_root = "", root_args = []):
     help:str = ""
     for command in commands:
-        command_root = f"{command_root.strip()} " if command_root != "" else command_root
+        command_root = f"{command_root.strip()} " if command_root != "" else ""
         help += f"\nCOMMAND: {command_root}{command["command"]}, command_id = {command["id"]}   ({command.get("help", "")})\n"
 
         args = command.get("args", [])

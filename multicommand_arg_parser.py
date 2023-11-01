@@ -3,7 +3,9 @@ import json
 import os
 import sys
 
-from multicommand_arg_parser_doc import get_parser_help
+from multicommand_context_holder import ContextHolder
+from multicommand_helper import get_parser_help
+
 
 class MulticommandArgParser:
 
@@ -11,6 +13,8 @@ class MulticommandArgParser:
         try:
             with open(json_file, 'r') as file:
                 self.parser_json = json.load(file)
+                self.parser = self.__get_parser_from_json(self.parser_json)
+                ContextHolder.init_args(self.parse_args())
         except FileNotFoundError:
             print(f"Cannot find '{json_file}' file")
             sys.exit(1)
@@ -18,15 +22,18 @@ class MulticommandArgParser:
             print(f"JSON decode thrown an exception: {e}")
             sys.exit(1)
 
+    def parse_args(self):
+        return self.parser.parse_args()
+
     def get_parser(self) -> argparse.ArgumentParser:
-        return self.__get_parser_from_json(self.parser_json)
-    
+        return self.parser
+
     def print_help(self):
         print(get_parser_help(self.parser_json))
 
     def get_help(self) -> str:
         return get_parser_help(self.parser_json)
-    
+
     def __add_subcommand_to_parser(self, parser: argparse.ArgumentParser, json_data: dict):
         subparsers = parser.add_subparsers()
         parser

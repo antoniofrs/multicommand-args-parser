@@ -92,9 +92,12 @@ If the command line argument is passed the environment variable is ignored
 ## How to use
 
 ```python
+from multicommand_arg_parser import MulticommandArgParser
+
+
 mcap = MulticommandArgParser("template-args.json")
 parser = mcap.get_parser()
-args = parser.parse_args()
+args = mcap.parse_args()
 
 print("Selected command with id: ", args.command_id)
 print("Args list: ", args)
@@ -103,3 +106,16 @@ mcap.print_help() # Print help on standard output
 print(mcap.get_help()) # Print help wherever you want
 ```
 
+### Context holder
+Once the MulticommandArgParser is initialized you can access passed arguments via the context holder:
+
+```python
+from multicommand_arg_parser import MulticommandArgParser
+from multicommand_context_holder import ContextHolder
+
+
+MulticommandArgParser("template-args.json")
+
+print("Command id form Context holder:", ContextHolder.get_command_id())
+print("Namespace from Context holder:", ContextHolder.get_all_args())
+```
