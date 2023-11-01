@@ -15,7 +15,11 @@ class ContextHolder:
 
     @classmethod
     def get(cls, key) -> str:
-        return cls.args.get(key, None)
+        return cls.get_or_default(key, None)
+    
+    @classmethod
+    def get_or_default(cls, key, default) -> str:
+        return cls.args.get(key, default)
 
     @classmethod
     def get_all_args(cls) -> dict:
